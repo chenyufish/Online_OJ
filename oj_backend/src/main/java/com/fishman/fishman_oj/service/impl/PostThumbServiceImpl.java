@@ -1,6 +1,7 @@
 package com.fishman.fishman_oj.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fishman.fishman_oj.common.ErrorCode;
 import com.fishman.fishman_oj.exception.BusinessException;
@@ -8,12 +9,14 @@ import com.fishman.fishman_oj.mapper.PostThumbMapper;
 import com.fishman.fishman_oj.model.entity.Post;
 import com.fishman.fishman_oj.model.entity.PostThumb;
 import com.fishman.fishman_oj.model.entity.User;
+
 import com.fishman.fishman_oj.service.PostService;
 import com.fishman.fishman_oj.service.PostThumbService;
-import javax.annotation.Resource;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * 帖子点赞服务实现

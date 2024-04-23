@@ -12,25 +12,20 @@ import com.fishman.fishman_oj.mapper.PostMapper;
 import com.fishman.fishman_oj.mapper.PostThumbMapper;
 import com.fishman.fishman_oj.model.dto.post.PostEsDTO;
 import com.fishman.fishman_oj.model.dto.post.PostQueryRequest;
-import com.fishman.fishman_oj.model.entity.Post;
-import com.fishman.fishman_oj.model.entity.PostFavour;
-import com.fishman.fishman_oj.model.entity.PostThumb;
-import com.fishman.fishman_oj.model.entity.User;
 import com.fishman.fishman_oj.model.vo.PostVO;
 import com.fishman.fishman_oj.model.vo.UserVO;
 import com.fishman.fishman_oj.service.PostService;
 import com.fishman.fishman_oj.service.UserService;
 import com.fishman.fishman_oj.utils.SqlUtils;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import com.google.gson.Gson;
+
+import com.fishman.fishman_oj.model.entity.Post;
+import com.fishman.fishman_oj.model.entity.PostFavour;
+import com.fishman.fishman_oj.model.entity.PostThumb;
+import com.fishman.fishman_oj.model.entity.User;
+
 import lombok.extern.slf4j.Slf4j;
-import cn.hutool.core.collection.CollUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -46,6 +41,11 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
+import java.util.stream.Collectors;
+
 /**
  * 帖子服务实现
  *
@@ -55,6 +55,8 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements PostService {
+
+    private final static Gson GSON = new Gson();
 
     @Resource
     private UserService userService;
@@ -112,11 +114,11 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         Long notId = postQueryRequest.getNotId();
         // 拼接查询条件
         if (StringUtils.isNotBlank(searchText)) {
-            queryWrapper.and(qw -> qw.like("title", searchText).or().like("content", searchText));
+            queryWrapper.like("title", searchText).or().like("content", searchText);
         }
         queryWrapper.like(StringUtils.isNotBlank(title), "title", title);
         queryWrapper.like(StringUtils.isNotBlank(content), "content", content);
-        if (CollUtil.isNotEmpty(tagList)) {
+        if (CollectionUtils.isNotEmpty(tagList)) {
             for (String tag : tagList) {
                 queryWrapper.like("tags", "\"" + tag + "\"");
             }
@@ -124,6 +126,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         queryWrapper.ne(ObjectUtils.isNotEmpty(notId), "id", notId);
         queryWrapper.eq(ObjectUtils.isNotEmpty(id), "id", id);
         queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "userId", userId);
+        queryWrapper.eq("isDelete", false);
         queryWrapper.orderBy(SqlUtils.validSortField(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC),
                 sortField);
         return queryWrapper;
@@ -157,13 +160,13 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
             boolQueryBuilder.filter(QueryBuilders.termQuery("userId", userId));
         }
         // 必须包含所有标签
-        if (CollUtil.isNotEmpty(tagList)) {
+        if (CollectionUtils.isNotEmpty(tagList)) {
             for (String tag : tagList) {
                 boolQueryBuilder.filter(QueryBuilders.termQuery("tags", tag));
             }
         }
         // 包含任何一个标签即可
-        if (CollUtil.isNotEmpty(orTagList)) {
+        if (CollectionUtils.isNotEmpty(orTagList)) {
             BoolQueryBuilder orTagBoolQueryBuilder = QueryBuilders.boolQuery();
             for (String tag : orTagList) {
                 orTagBoolQueryBuilder.should(QueryBuilders.termQuery("tags", tag));
@@ -261,7 +264,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
     public Page<PostVO> getPostVOPage(Page<Post> postPage, HttpServletRequest request) {
         List<Post> postList = postPage.getRecords();
         Page<PostVO> postVOPage = new Page<>(postPage.getCurrent(), postPage.getSize(), postPage.getTotal());
-        if (CollUtil.isEmpty(postList)) {
+        if (CollectionUtils.isEmpty(postList)) {
             return postVOPage;
         }
         // 1. 关联查询用户信息

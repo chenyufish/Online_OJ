@@ -13,15 +13,15 @@ spring:
   session:
     # todo 取消注释开启分布式 session（须先配置 Redis）
     # store-type: redis
-    # 30 天过期
-    timeout: 2592000
+    # 7天过期
+    timeout: 86000
   # 数据库配置
   # todo 需替换配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/my_db
+    url: jdbc:mysql://localhost:3306/fishmanoj
     username: root
-    password: 123456
+    password: 030610CHENyu
   # Redis 配置
   # todo 需替换配置，然后取消注释
 #  redis:
@@ -46,10 +46,10 @@ server:
   port: 8101
   servlet:
     context-path: /api
-    # cookie 30 天过期
+    # cookie 7 天过期
     session:
       cookie:
-        max-age: 2592000
+        max-age: 86000
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
@@ -92,7 +92,7 @@ cos:
 knife4j:
   enable: true
   openapi:
-    title: "接口文档"
+    title: "fishmanOJ接口文档"
     version: 1.0
     group:
       default:

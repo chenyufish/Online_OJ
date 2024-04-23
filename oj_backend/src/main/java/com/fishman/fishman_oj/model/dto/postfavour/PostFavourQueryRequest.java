@@ -1,10 +1,12 @@
 package com.fishman.fishman_oj.model.dto.postfavour;
 
+
 import com.fishman.fishman_oj.common.PageRequest;
 import com.fishman.fishman_oj.model.dto.post.PostQueryRequest;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * 帖子收藏查询请求

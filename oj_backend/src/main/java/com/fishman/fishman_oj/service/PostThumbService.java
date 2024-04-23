@@ -1,7 +1,7 @@
 package com.fishman.fishman_oj.service;
 
-import com.fishman.fishman_oj.model.entity.PostThumb;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fishman.fishman_oj.model.entity.PostThumb;
 import com.fishman.fishman_oj.model.entity.User;
 
 /**

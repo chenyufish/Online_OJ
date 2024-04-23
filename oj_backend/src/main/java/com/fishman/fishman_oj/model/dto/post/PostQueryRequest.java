@@ -1,10 +1,12 @@
 package com.fishman.fishman_oj.model.dto.post;
 
+
 import com.fishman.fishman_oj.common.PageRequest;
-import java.io.Serializable;
-import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 查询请求

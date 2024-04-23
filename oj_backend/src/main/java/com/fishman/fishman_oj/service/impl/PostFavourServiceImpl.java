@@ -8,15 +8,18 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fishman.fishman_oj.common.ErrorCode;
 import com.fishman.fishman_oj.exception.BusinessException;
 import com.fishman.fishman_oj.mapper.PostFavourMapper;
+import com.fishman.fishman_oj.service.PostFavourService;
+import com.fishman.fishman_oj.service.PostService;
+
 import com.fishman.fishman_oj.model.entity.Post;
 import com.fishman.fishman_oj.model.entity.PostFavour;
 import com.fishman.fishman_oj.model.entity.User;
-import com.fishman.fishman_oj.service.PostFavourService;
-import com.fishman.fishman_oj.service.PostService;
-import javax.annotation.Resource;
+
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * 帖子收藏服务实现

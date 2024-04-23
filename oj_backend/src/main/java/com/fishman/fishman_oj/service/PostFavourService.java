@@ -1,5 +1,7 @@
 package com.fishman.fishman_oj.service;
 
+
+
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -34,7 +36,7 @@ public interface PostFavourService extends IService<PostFavour> {
      * @return
      */
     Page<Post> listFavourPostByPage(IPage<Post> page, Wrapper<Post> queryWrapper,
-            long favourUserId);
+                                    long favourUserId);
 
     /**
      * 帖子收藏（内部服务）
