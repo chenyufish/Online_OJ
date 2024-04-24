@@ -68,7 +68,7 @@ console.log();
 
 setTimeout(() => {
   store.dispatch("user/getLoginUser", {
-    userName: "鱼皮管理员",
+    userName: "Fishman管理员",
     userRole: ACCESS_ENUM.ADMIN,
   });
 }, 3000);

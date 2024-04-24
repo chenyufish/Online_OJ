@@ -59,6 +59,7 @@ public class QuestionController {
      * @param request
      * @return
      */
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     @PostMapping("/add")
     public BaseResponse<Long> addQuestion(@RequestBody QuestionAddRequest questionAddRequest, HttpServletRequest request) {
         if (questionAddRequest == null) {
