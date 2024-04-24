@@ -1,6 +1,5 @@
 package com.fishman.fishman_oj.controller;
 
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fishman.fishman_oj.annotation.AuthCheck;
 import com.fishman.fishman_oj.common.BaseResponse;
@@ -19,22 +18,19 @@ import com.fishman.fishman_oj.model.entity.User;
 import com.fishman.fishman_oj.model.vo.PostVO;
 import com.fishman.fishman_oj.service.PostService;
 import com.fishman.fishman_oj.service.UserService;
-import java.util.List;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import com.google.gson.Gson;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 帖子接口
  *
- * @author fishman
- * 
  */
 @RestController
 @RequestMapping("/post")
@@ -46,6 +42,8 @@ public class PostController {
 
     @Resource
     private UserService userService;
+
+    private final static Gson GSON = new Gson();
 
     // region 增删改查
 
@@ -65,7 +63,7 @@ public class PostController {
         BeanUtils.copyProperties(postAddRequest, post);
         List<String> tags = postAddRequest.getTags();
         if (tags != null) {
-            post.setTags(JSONUtil.toJsonStr(tags));
+            post.setTags(GSON.toJson(tags));
         }
         postService.validPost(post, true);
         User loginUser = userService.getLoginUser(request);
@@ -119,7 +117,7 @@ public class PostController {
         BeanUtils.copyProperties(postUpdateRequest, post);
         List<String> tags = postUpdateRequest.getTags();
         if (tags != null) {
-            post.setTags(JSONUtil.toJsonStr(tags));
+            post.setTags(GSON.toJson(tags));
         }
         // 参数校验
         postService.validPost(post, false);
@@ -147,22 +145,6 @@ public class PostController {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
         return ResultUtils.success(postService.getPostVO(post, request));
-    }
-
-    /**
-     * 分页获取列表（仅管理员）
-     *
-     * @param postQueryRequest
-     * @return
-     */
-    @PostMapping("/list/page")
-    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
-    public BaseResponse<Page<Post>> listPostByPage(@RequestBody PostQueryRequest postQueryRequest) {
-        long current = postQueryRequest.getCurrent();
-        long size = postQueryRequest.getPageSize();
-        Page<Post> postPage = postService.page(new Page<>(current, size),
-                postService.getQueryWrapper(postQueryRequest));
-        return ResultUtils.success(postPage);
     }
 
     /**
@@ -243,7 +225,7 @@ public class PostController {
         BeanUtils.copyProperties(postEditRequest, post);
         List<String> tags = postEditRequest.getTags();
         if (tags != null) {
-            post.setTags(JSONUtil.toJsonStr(tags));
+            post.setTags(GSON.toJson(tags));
         }
         // 参数校验
         postService.validPost(post, false);

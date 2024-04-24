@@ -344,7 +344,7 @@ https://github.com/ferdikoomen/openapi-typescript-codegen
 根据文档执行一键生成命令
 
 ```sh
-openapi --input http://localhost:8121/api/v2/api-docs --output ./generated --client axios
+openapi --input http://localhost:8101/api/v2/api-docs --output ./generated --client axios
 ```
 
 还可以使用一键生成大代码进行全局参数修改
@@ -521,14 +521,71 @@ component:UserRegisterview,
 建表以后还要构建一些枚举值
 
 判题信息枚举值：
+
 Accepted成功
+
 ·Wrong Answer答案错误
+
 ·Compile Error编译错误
+
 ·Memory Limit Exceeded内存溢出
+
 ·Time Limit Exceeded超时
+
 ·Presentation Error展示错误
+
 ·Output Limit Exceeded输出溢出
+
 ·Waiting等待中
+
 ·Dangerous Operation危险操作
+
 ·Runtime Error运行错误（用户程序的问题）
+
 ·System Error系统错误（做系统人的问题）
+
+小知识：什么情况下要加业务前缀？什么情况下不加？
+
+加业务前缀的好处，防止多个表都有类似的类，产生冲突；不加的前提，因为可能这个类是多个业务之间共享的能够复用的。
+
+定义VO类：作用是专门给前端返回对象，可以节约网络传输大小、或者过滤字段（脱敏）、保证安全性。
+比如judgeCase、answer字段，一定要删，不能直接给用户答案。
+
+校验Controller层的代码，看看除了要调用的方法缺失外，还有无报错
+
+实现Service层的代码，从对应的已经编写好的实现类复制粘贴，全局替换（比如question=>post)
+
+编写QuestionVO的json/对象转换工具类
+
+用同样的方法，编写questionSubmit提交类，这次参考postThumb相关文件
+
+编写枚举类
+
+
+
+# 前端页面开发
+
+1. 用户注册页面
+2. 创建题目页面（管理员）
+3. 题目管理页面（管理员）
+   查看（搜索）
+   删除
+   ·修改
+   ·快捷创建
+4. 题目列表页（用户）
+5. 题目详情页
+   （在线做题页）
+   ·判题状态的查看
+6. 题目提交列表页
+
+
+
+### 引入Markdown
+
+推荐的Md编辑器：https://github.com/bytedance/,bytemd
+阅读官方文档，下载编辑器主体、以及gfm(表格支持)插件、highlight代码高亮插件
+
+```
+
+```
+

@@ -1,6 +1,7 @@
 package com.fishman.fishman_oj.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import com.fishman.fishman_oj.annotation.AuthCheck;
 import com.fishman.fishman_oj.common.BaseResponse;
 import com.fishman.fishman_oj.common.DeleteRequest;
@@ -10,43 +11,28 @@ import com.fishman.fishman_oj.config.WxOpenConfig;
 import com.fishman.fishman_oj.constant.UserConstant;
 import com.fishman.fishman_oj.exception.BusinessException;
 import com.fishman.fishman_oj.exception.ThrowUtils;
-import com.fishman.fishman_oj.model.dto.user.UserAddRequest;
-import com.fishman.fishman_oj.model.dto.user.UserLoginRequest;
-import com.fishman.fishman_oj.model.dto.user.UserQueryRequest;
-import com.fishman.fishman_oj.model.dto.user.UserRegisterRequest;
-import com.fishman.fishman_oj.model.dto.user.UserUpdateMyRequest;
-import com.fishman.fishman_oj.model.dto.user.UserUpdateRequest;
+import com.fishman.fishman_oj.model.dto.user.*;
 import com.fishman.fishman_oj.model.entity.User;
 import com.fishman.fishman_oj.model.vo.LoginUserVO;
 import com.fishman.fishman_oj.model.vo.UserVO;
 import com.fishman.fishman_oj.service.UserService;
-
-import java.util.List;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
 import me.chanjar.weixin.mp.api.WxMpService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static com.fishman.fishman_oj.service.impl.UserServiceImpl.SALT;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 用户接口
  *
- * @author fishman
- * 
+
  */
 @RestController
 @RequestMapping("/user")
@@ -172,10 +158,6 @@ public class UserController {
         }
         User user = new User();
         BeanUtils.copyProperties(userAddRequest, user);
-        // 默认密码 12345678
-        String defaultPassword = "12345678";
-        String encryptPassword = DigestUtils.md5DigestAsHex((SALT + defaultPassword).getBytes());
-        user.setUserPassword(encryptPassword);
         boolean result = userService.save(user);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         return ResultUtils.success(user.getId());

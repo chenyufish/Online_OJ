@@ -1,6 +1,7 @@
 package com.fishman.fishman_oj.controller;
 
 import cn.hutool.core.io.FileUtil;
+
 import com.fishman.fishman_oj.common.BaseResponse;
 import com.fishman.fishman_oj.common.ErrorCode;
 import com.fishman.fishman_oj.common.ResultUtils;
@@ -11,10 +12,6 @@ import com.fishman.fishman_oj.model.dto.file.UploadFileRequest;
 import com.fishman.fishman_oj.model.entity.User;
 import com.fishman.fishman_oj.model.enums.FileUploadBizEnum;
 import com.fishman.fishman_oj.service.UserService;
-import java.io.File;
-import java.util.Arrays;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.Arrays;
+
 /**
  * 文件接口
  *
- * @author fishman
- * 
  */
 @RestController
 @RequestMapping("/file")
@@ -50,7 +50,7 @@ public class FileController {
      */
     @PostMapping("/upload")
     public BaseResponse<String> uploadFile(@RequestPart("file") MultipartFile multipartFile,
-            UploadFileRequest uploadFileRequest, HttpServletRequest request) {
+                                           UploadFileRequest uploadFileRequest, HttpServletRequest request) {
         String biz = uploadFileRequest.getBiz();
         FileUploadBizEnum fileUploadBizEnum = FileUploadBizEnum.getEnumByValue(biz);
         if (fileUploadBizEnum == null) {

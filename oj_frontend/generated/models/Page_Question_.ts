@@ -1,10 +1,9 @@
-/* generated using openapi-typescript-codegen -- do no edit */
+/* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
-import type { OrderItem } from './OrderItem';
-import type { Question } from './Question';
+import type {OrderItem} from './OrderItem';
+import type {Question} from './Question';
 
 export type Page_Question_ = {
     countId?: string;
@@ -18,3 +17,4 @@ export type Page_Question_ = {
     size?: number;
     total?: number;
 };
+

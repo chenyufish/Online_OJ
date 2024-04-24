@@ -1,28 +1,26 @@
-/* generated using openapi-typescript-codegen -- do no edit */
+/* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { BaseResponse_boolean_ } from '../models/BaseResponse_boolean_';
-import type { BaseResponse_long_ } from '../models/BaseResponse_long_';
-import type { BaseResponse_Page_Question_ } from '../models/BaseResponse_Page_Question_';
-import type { BaseResponse_Page_QuestionSubmitVO_ } from '../models/BaseResponse_Page_QuestionSubmitVO_';
-import type { BaseResponse_Page_QuestionVO_ } from '../models/BaseResponse_Page_QuestionVO_';
-import type { BaseResponse_Question_ } from '../models/BaseResponse_Question_';
-import type { BaseResponse_QuestionVO_ } from '../models/BaseResponse_QuestionVO_';
-import type { DeleteRequest } from '../models/DeleteRequest';
-import type { QuestionAddRequest } from '../models/QuestionAddRequest';
-import type { QuestionEditRequest } from '../models/QuestionEditRequest';
-import type { QuestionQueryRequest } from '../models/QuestionQueryRequest';
-import type { QuestionSubmitAddRequest } from '../models/QuestionSubmitAddRequest';
-import type { QuestionSubmitQueryRequest } from '../models/QuestionSubmitQueryRequest';
-import type { QuestionUpdateRequest } from '../models/QuestionUpdateRequest';
-
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type {BaseResponse_boolean_} from '../models/BaseResponse_boolean_';
+import type {BaseResponse_long_} from '../models/BaseResponse_long_';
+import type {BaseResponse_Page_Question_} from '../models/BaseResponse_Page_Question_';
+import type {BaseResponse_Page_QuestionSubmitVO_} from '../models/BaseResponse_Page_QuestionSubmitVO_';
+import type {BaseResponse_Page_QuestionVO_} from '../models/BaseResponse_Page_QuestionVO_';
+import type {BaseResponse_Question_} from '../models/BaseResponse_Question_';
+import type {BaseResponse_QuestionVO_} from '../models/BaseResponse_QuestionVO_';
+import type {DeleteRequest} from '../models/DeleteRequest';
+import type {QuestionAddRequest} from '../models/QuestionAddRequest';
+import type {QuestionEditRequest} from '../models/QuestionEditRequest';
+import type {QuestionQueryRequest} from '../models/QuestionQueryRequest';
+import type {QuestionSubmitAddRequest} from '../models/QuestionSubmitAddRequest';
+import type {QuestionSubmitQueryRequest} from '../models/QuestionSubmitQueryRequest';
+import type {QuestionUpdateRequest} from '../models/QuestionUpdateRequest';
+import type {CancelablePromise} from '../core/CancelablePromise';
+import {OpenAPI} from '../core/OpenAPI';
+import {request as __request} from '../core/request';
 
 export class QuestionControllerService {
-
     /**
      * addQuestion
      * @param questionAddRequest questionAddRequest
@@ -31,8 +29,8 @@ export class QuestionControllerService {
      * @throws ApiError
      */
     public static addQuestionUsingPost(
-questionAddRequest: QuestionAddRequest,
-): CancelablePromise<BaseResponse_long_ | any> {
+        questionAddRequest: QuestionAddRequest,
+    ): CancelablePromise<BaseResponse_long_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/add',
@@ -53,8 +51,8 @@ questionAddRequest: QuestionAddRequest,
      * @throws ApiError
      */
     public static deleteQuestionUsingPost(
-deleteRequest: DeleteRequest,
-): CancelablePromise<BaseResponse_boolean_ | any> {
+        deleteRequest: DeleteRequest,
+    ): CancelablePromise<BaseResponse_boolean_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/delete',
@@ -75,8 +73,8 @@ deleteRequest: DeleteRequest,
      * @throws ApiError
      */
     public static editQuestionUsingPost(
-questionEditRequest: QuestionEditRequest,
-): CancelablePromise<BaseResponse_boolean_ | any> {
+        questionEditRequest: QuestionEditRequest,
+    ): CancelablePromise<BaseResponse_boolean_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/edit',
@@ -96,8 +94,8 @@ questionEditRequest: QuestionEditRequest,
      * @throws ApiError
      */
     public static getQuestionByIdUsingGet(
-id?: number,
-): CancelablePromise<BaseResponse_Question_> {
+        id?: number,
+    ): CancelablePromise<BaseResponse_Question_> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/question/get',
@@ -119,8 +117,8 @@ id?: number,
      * @throws ApiError
      */
     public static getQuestionVoByIdUsingGet(
-id?: number,
-): CancelablePromise<BaseResponse_QuestionVO_> {
+        id?: number,
+    ): CancelablePromise<BaseResponse_QuestionVO_> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/question/get/vo',
@@ -143,8 +141,8 @@ id?: number,
      * @throws ApiError
      */
     public static listQuestionByPageUsingPost(
-questionQueryRequest: QuestionQueryRequest,
-): CancelablePromise<BaseResponse_Page_Question_ | any> {
+        questionQueryRequest: QuestionQueryRequest,
+    ): CancelablePromise<BaseResponse_Page_Question_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/list/page',
@@ -165,8 +163,8 @@ questionQueryRequest: QuestionQueryRequest,
      * @throws ApiError
      */
     public static listQuestionVoByPageUsingPost(
-questionQueryRequest: QuestionQueryRequest,
-): CancelablePromise<BaseResponse_Page_QuestionVO_ | any> {
+        questionQueryRequest: QuestionQueryRequest,
+    ): CancelablePromise<BaseResponse_Page_QuestionVO_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/list/page/vo',
@@ -187,8 +185,8 @@ questionQueryRequest: QuestionQueryRequest,
      * @throws ApiError
      */
     public static listMyQuestionVoByPageUsingPost(
-questionQueryRequest: QuestionQueryRequest,
-): CancelablePromise<BaseResponse_Page_QuestionVO_ | any> {
+        questionQueryRequest: QuestionQueryRequest,
+    ): CancelablePromise<BaseResponse_Page_QuestionVO_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/my/list/page/vo',
@@ -209,8 +207,8 @@ questionQueryRequest: QuestionQueryRequest,
      * @throws ApiError
      */
     public static doQuestionSubmitUsingPost(
-questionSubmitAddRequest: QuestionSubmitAddRequest,
-): CancelablePromise<BaseResponse_long_ | any> {
+        questionSubmitAddRequest: QuestionSubmitAddRequest,
+    ): CancelablePromise<BaseResponse_long_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/question_submit/do',
@@ -231,8 +229,8 @@ questionSubmitAddRequest: QuestionSubmitAddRequest,
      * @throws ApiError
      */
     public static listQuestionSubmitByPageUsingPost(
-questionSubmitQueryRequest: QuestionSubmitQueryRequest,
-): CancelablePromise<BaseResponse_Page_QuestionSubmitVO_ | any> {
+        questionSubmitQueryRequest: QuestionSubmitQueryRequest,
+    ): CancelablePromise<BaseResponse_Page_QuestionSubmitVO_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/question_submit/list/page',
@@ -253,8 +251,8 @@ questionSubmitQueryRequest: QuestionSubmitQueryRequest,
      * @throws ApiError
      */
     public static updateQuestionUsingPost(
-questionUpdateRequest: QuestionUpdateRequest,
-): CancelablePromise<BaseResponse_boolean_ | any> {
+        questionUpdateRequest: QuestionUpdateRequest,
+    ): CancelablePromise<BaseResponse_boolean_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/update',
@@ -266,5 +264,4 @@ questionUpdateRequest: QuestionUpdateRequest,
             },
         });
     }
-
 }

@@ -1,11 +1,10 @@
-/* generated using openapi-typescript-codegen -- do no edit */
+/* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
-import type { JudgeInfo } from './JudgeInfo';
-import type { QuestionVO } from './QuestionVO';
-import type { UserVO } from './UserVO';
+import type {JudgeInfo} from './JudgeInfo';
+import type {QuestionVO} from './QuestionVO';
+import type {UserVO} from './UserVO';
 
 export type QuestionSubmitVO = {
     code?: string;
@@ -20,3 +19,4 @@ export type QuestionSubmitVO = {
     userId?: number;
     userVO?: UserVO;
 };
+

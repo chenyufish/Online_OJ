@@ -1,6 +1,7 @@
 package com.fishman.fishman_oj.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import com.fishman.fishman_oj.common.BaseResponse;
 import com.fishman.fishman_oj.common.ErrorCode;
 import com.fishman.fishman_oj.common.ResultUtils;
@@ -15,19 +16,18 @@ import com.fishman.fishman_oj.model.vo.PostVO;
 import com.fishman.fishman_oj.service.PostFavourService;
 import com.fishman.fishman_oj.service.PostService;
 import com.fishman.fishman_oj.service.UserService;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 帖子收藏接口
  *
- * @author fishman
- * 
  */
 @RestController
 @RequestMapping("/post_favour")
@@ -52,7 +52,7 @@ public class PostFavourController {
      */
     @PostMapping("/")
     public BaseResponse<Integer> doPostFavour(@RequestBody PostFavourAddRequest postFavourAddRequest,
-            HttpServletRequest request) {
+                                              HttpServletRequest request) {
         if (postFavourAddRequest == null || postFavourAddRequest.getPostId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -71,7 +71,7 @@ public class PostFavourController {
      */
     @PostMapping("/my/list/page")
     public BaseResponse<Page<PostVO>> listMyFavourPostByPage(@RequestBody PostQueryRequest postQueryRequest,
-            HttpServletRequest request) {
+                                                             HttpServletRequest request) {
         if (postQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }

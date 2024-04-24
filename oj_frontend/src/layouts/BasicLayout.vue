@@ -9,7 +9,7 @@
       </a-layout-content>
       <a-layout-footer class="footer">
         <a href="https://github.com/chenyufish/Online_OJ" target="_blank">
-          fishmanGithub
+          Fishman Github
         </a>
       </a-layout-footer>
     </a-layout>
