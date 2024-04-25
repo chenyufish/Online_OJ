@@ -99,3 +99,7 @@ knife4j:
         api-rule: package
         api-rule-resources:
           - com.fishman.fishman_oj.controller
+
+# 代码沙箱测试配置
+codesandbox:
+  type: example
