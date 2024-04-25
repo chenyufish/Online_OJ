@@ -47,6 +47,21 @@ class CodeSandboxTest {
         ExecuteCodeResponse executeCodeResponse=codeSandbox.executeCode(executeCodeRequest);
         Assertions.assertNotNull(executeCodeResponse);
     }
+    @Test
+    void excuteCodeByProxy(){
+        CodeSandbox codeSandbox=CodeSandboxFactory.newInstance(type);
+        codeSandbox=new CodeSandboxProxy(codeSandbox);
+        String code="int main(){}";
+        String language= QuestionSubmitLanguageEnum.JAVA.getValue();
+        List<String> inputList= Arrays.asList("1,2","3,4");
+        ExecuteCodeRequest executeCodeRequest =ExecuteCodeRequest.builder()
+                .code(code)
+                .language(language)
+                .inputList(inputList)
+                .build();
+        ExecuteCodeResponse executeCodeResponse=codeSandbox.executeCode(executeCodeRequest);
+        Assertions.assertNotNull(executeCodeResponse);
+    }
 
     public static void main(String[] args) {
         Scanner scanner=new Scanner(System.in);
