@@ -3,6 +3,9 @@ package com.fishman.oj_code_sandbox;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 
+import cn.hutool.dfa.FoundWord;
+import cn.hutool.dfa.WordTree;
+import cn.hutool.extra.tokenizer.Word;
 import com.fishman.oj_code_sandbox.model.ExecuteCodeRequest;
 import com.fishman.oj_code_sandbox.model.ExecuteCodeResponse;
 import com.fishman.oj_code_sandbox.model.ExecuteMessage;
@@ -13,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,11 +32,22 @@ public abstract class JavaNativeCodeSandbox implements CodeSandbox {
 
     private static final long TIME_OUT = 5000L;
 
+    private static final List<String> blaklist=Arrays.asList("Flies","exec");
+
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
         List<String> inputList = executeCodeRequest.getInputList();
         String code = executeCodeRequest.getCode();
         String language = executeCodeRequest.getLanguage();
+
+        //使用字典树判断危险指令
+        WordTree wordTree = new WordTree();
+        wordTree.addWords(blaklist);
+        FoundWord foundWord = wordTree.matchWord(code);
+        if(foundWord!=null){
+            System.out.println(foundWord.getFoundWord());
+            return null;
+        }
 
 //        1. 把用户的代码保存为文件
         File userCodeFile = saveCodeToFile(code);
