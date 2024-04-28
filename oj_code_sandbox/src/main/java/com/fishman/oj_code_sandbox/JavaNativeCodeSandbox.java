@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 
 import cn.hutool.dfa.FoundWord;
 import cn.hutool.dfa.WordTree;
-import cn.hutool.extra.tokenizer.Word;
 import com.fishman.oj_code_sandbox.model.ExecuteCodeRequest;
 import com.fishman.oj_code_sandbox.model.ExecuteCodeResponse;
 import com.fishman.oj_code_sandbox.model.ExecuteMessage;
@@ -33,6 +32,9 @@ public abstract class JavaNativeCodeSandbox implements CodeSandbox {
     private static final long TIME_OUT = 5000L;
 
     private static final List<String> blaklist=Arrays.asList("Flies","exec");
+    private static final String SECURITY_MANAGER_PATH = "G:\\java_projects\\java_project\\在线OJ平台\\Online_OJ\\oj_code_sandbox\\src\\main\\resources\\security";
+
+    private static final String SECURITY_MANAGER_CLASS_NAME = "MySecurityManager";
 
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
@@ -123,7 +125,7 @@ public abstract class JavaNativeCodeSandbox implements CodeSandbox {
         List<ExecuteMessage> executeMessageList = new ArrayList<>();
         for (String inputArgs : inputList) {
 //            String runCmd = String.format("java -Xmx256m -Dfile.encoding=UTF-8 -cp %s Main %s", userCodeParentPath, inputArgs);
-            String runCmd = String.format("java -Xmx256m -Dfile.encoding=UTF-8 -cp %s Main %s", userCodeParentPath, inputArgs);
+            String runCmd = String.format("java -Xmx256m -Dfile.encoding=UTF-8 -cp %s;%s -Djava.security.manager=%s Main %s", userCodeParentPath, SECURITY_MANAGER_PATH, SECURITY_MANAGER_CLASS_NAME, inputArgs);
             try {
                 Process runProcess = Runtime.getRuntime().exec(runCmd);
                 // 超时控制
