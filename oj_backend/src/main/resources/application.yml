@@ -102,4 +102,4 @@ knife4j:
 
 # 代码沙箱测试配置
 codesandbox:
-  type: example
+  type: remote

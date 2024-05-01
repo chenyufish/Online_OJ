@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 @SpringBootTest
 class CodeSandboxTest {
-    @Value("${codesandbox.type:example}")
+    @Value("${codesandbox.type}")
     private String type;
 
     @Test
@@ -48,18 +48,24 @@ class CodeSandboxTest {
         Assertions.assertNotNull(executeCodeResponse);
     }
     @Test
-    void excuteCodeByProxy(){
-        CodeSandbox codeSandbox=CodeSandboxFactory.newInstance(type);
-        codeSandbox=new CodeSandboxProxy(codeSandbox);
-        String code="int main(){}";
-        String language= QuestionSubmitLanguageEnum.JAVA.getValue();
-        List<String> inputList= Arrays.asList("1,2","3,4");
-        ExecuteCodeRequest executeCodeRequest =ExecuteCodeRequest.builder()
+    void executeCodeByProxy() {
+        CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
+        codeSandbox = new CodeSandboxProxy(codeSandbox);
+        String code = "public class Main {\n" +
+                "    public static void main(String[] args) {\n" +
+                "        int a = Integer.parseInt(args[0]);\n" +
+                "        int b = Integer.parseInt(args[1]);\n" +
+                "        System.out.println(\"结果:\" + (a + b));\n" +
+                "    }\n" +
+                "}";
+        String language = QuestionSubmitLanguageEnum.JAVA.getValue();
+        List<String> inputList = Arrays.asList("1 2", "3 4");
+        ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
                 .inputList(inputList)
                 .build();
-        ExecuteCodeResponse executeCodeResponse=codeSandbox.executeCode(executeCodeRequest);
+        ExecuteCodeResponse executeCodeResponse = codeSandbox.executeCode(executeCodeRequest);
         Assertions.assertNotNull(executeCodeResponse);
     }
 
