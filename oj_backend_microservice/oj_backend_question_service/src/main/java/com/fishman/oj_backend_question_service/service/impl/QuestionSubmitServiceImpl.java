@@ -17,10 +17,11 @@ import com.fishman.oj_backend_model.model.enums.QuestionSubmitLanguageEnum;
 import com.fishman.oj_backend_model.model.enums.QuestionSubmitStatusEnum;
 import com.fishman.oj_backend_model.model.vo.QuestionSubmitVO;
 import com.fishman.oj_backend_question_service.mapper.QuestionSubmitMapper;
-import com.fishman.oj_backend_service_client.service.JudgeService;
-import com.fishman.oj_backend_service_client.service.QuestionService;
-import com.fishman.oj_backend_service_client.service.QuestionSubmitService;
-import com.fishman.oj_backend_service_client.service.UserService;
+
+import com.fishman.oj_backend_question_service.service.QuestionService;
+import com.fishman.oj_backend_question_service.service.QuestionSubmitService;
+import com.fishman.oj_backend_service_client.service.JudgeFeignClient;
+import com.fishman.oj_backend_service_client.service.UserFeignClient;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -44,11 +45,11 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     private QuestionService questionService;
 
     @Resource
-    private UserService userService;
+    private UserFeignClient userFeignClient;
 
     @Resource
     @Lazy
-    private JudgeService judgeService;
+    private JudgeFeignClient judgeFeignClient;
 
     /**
      * 提交题目
@@ -89,7 +90,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         Long questionSubmitId = questionSubmit.getId();
         // 执行判题服务
         CompletableFuture.runAsync(() -> {
-            judgeService.doJudge(questionSubmitId);
+            judgeFeignClient.doJudge(questionSubmitId);
         });
         return questionSubmitId;
     }
@@ -131,7 +132,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         // 脱敏：仅本人和管理员能看见自己（提交 userId 和登录用户 id 不同）提交的代码
         long userId = loginUser.getId();
         // 处理脱敏
-        if (userId != questionSubmit.getUserId() && !userService.isAdmin(loginUser)) {
+        if (userId != questionSubmit.getUserId() && !userFeignClient.isAdmin(loginUser)) {
             questionSubmitVO.setCode(null);
         }
         return questionSubmitVO;
