@@ -1,7 +1,7 @@
 # 公共配置文件
 spring:
   application:
-    name: oj-backend
+    name: oj_backend_user_service
   # 默认 dev 环境
   profiles:
     active: dev
@@ -32,10 +32,10 @@ spring:
     password: 030610CHENyu
   # Elasticsearch 配置
   # todo 需替换配置，然后取消注释
-#  elasticsearch:
-#    uris: http://localhost:9200
-#    username: root
-#    password: 123456
+  #  elasticsearch:
+  #    uris: http://localhost:9200
+  #    username: root
+  #    password: 123456
   # 文件上传
   servlet:
     multipart:
@@ -43,7 +43,7 @@ spring:
       max-file-size: 10MB
 server:
   address: 0.0.0.0
-  port: 8101
+  port: 8102
   servlet:
     context-path: /api
     # cookie 7 天过期
@@ -88,17 +88,6 @@ cos:
     secretKey: xxx
     region: xxx
     bucket: xxx
-# 接口文档配置
-knife4j:
-  enable: true
-  openapi:
-    title: "fishmanOJ接口文档"
-    version: 1.0
-    group:
-      default:
-        api-rule: package
-        api-rule-resources:
-          - com.fishman.fishman_oj.controller
 
 # 代码沙箱测试配置
 codesandbox:

@@ -3,10 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fishman</groupId>
-    <artifactId>oj_code_sandbox</artifactId>
+    <artifactId>oj_backend_user_service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>oj_code_sandbox</name>
-    <description>oj_code_sandbox</description>
+    <name>oj_backend_user_service</name>
+    <description>oj_backend_user_service</description>
+    <parent>
+        <groupId>com.fishman</groupId>
+        <artifactId>oj_backend_microservice</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,48 +19,29 @@
         <spring-boot.version>2.6.13</spring-boot.version>
     </properties>
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.github.docker-java/docker-java-transport-httpclient5 -->
-        <dependency>
-            <groupId>com.github.docker-java</groupId>
-            <artifactId>docker-java-transport-httpclient5</artifactId>
-            <version>3.3.4</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.github.docker-java/docker-java -->
-        <dependency>
-            <groupId>com.github.docker-java</groupId>
-            <artifactId>docker-java</artifactId>
-            <version>3.3.4</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!-- https://hutool.cn/docs/index.html#/-->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fishman</groupId>
+            <artifactId>oj_backend_common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fishman</groupId>
+            <artifactId>oj_backend_model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fishman</groupId>
+            <artifactId>oj_backend_service_client</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -87,7 +73,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.fishman.oj_code_sandbox.OjCodeSandboxApplication</mainClass>
+                    <mainClass>com.fishman.oj_backend_user_service.OjBackendUserServiceApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>

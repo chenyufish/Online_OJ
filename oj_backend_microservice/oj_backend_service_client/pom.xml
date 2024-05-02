@@ -3,54 +3,32 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fishman</groupId>
-    <artifactId>oj_code_sandbox</artifactId>
+    <artifactId>oj_backend_service_client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>oj_code_sandbox</name>
-    <description>oj_code_sandbox</description>
+    <name>oj_backend_service_client</name>
+    <description>oj_backend_service_client</description>
+    <parent>
+        <groupId>com.fishman</groupId>
+        <artifactId>oj_backend_microservice</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.6.13</spring-boot.version>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
     </properties>
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.github.docker-java/docker-java-transport-httpclient5 -->
         <dependency>
-            <groupId>com.github.docker-java</groupId>
-            <artifactId>docker-java-transport-httpclient5</artifactId>
-            <version>3.3.4</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.github.docker-java/docker-java -->
-        <dependency>
-            <groupId>com.github.docker-java</groupId>
-            <artifactId>docker-java</artifactId>
-            <version>3.3.4</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>com.fishman</groupId>
+            <artifactId>oj_backend_model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!-- https://hutool.cn/docs/index.html#/-->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -60,6 +38,13 @@
     </dependencies>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -87,7 +72,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.fishman.oj_code_sandbox.OjCodeSandboxApplication</mainClass>
+                    <mainClass>com.fishman.oj_backend_service_client.OjBackendServiceClientApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
