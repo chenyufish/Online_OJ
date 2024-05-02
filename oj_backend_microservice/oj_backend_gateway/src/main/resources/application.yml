@@ -5,20 +5,20 @@ spring:
         server-addr: 127.0.0.1:8848
     gateway:
       routes:
-        - id: oj-backend-user-service
-          uri: lb://oj-backend-user-service
+        - id: oj_backend_user_service
+          uri: lb://oj_backend_user_service
           predicates:
             - Path=/api/user/**
-        - id: oj-backend-question-service
-          uri: lb://oj-backend-question-service
+        - id: oj_backend_question_service
+          uri: lb://oj_backend_question_service
           predicates:
             - Path=/api/question/**
-        - id: oj-backend-judge-service
-          uri: lb://oj-backend-judge-service
+        - id: oj_backend_judge_service
+          uri: lb://oj_backend_judge_service
           predicates:
             - Path=/api/judge/**
   application:
-    name: oj-backend-gateway
+    name: oj_backend_gateway
   main:
     web-application-type: reactive
 server:
