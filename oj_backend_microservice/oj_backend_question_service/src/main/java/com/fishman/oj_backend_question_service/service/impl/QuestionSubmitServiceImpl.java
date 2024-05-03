@@ -17,7 +17,7 @@ import com.fishman.oj_backend_model.model.enums.QuestionSubmitLanguageEnum;
 import com.fishman.oj_backend_model.model.enums.QuestionSubmitStatusEnum;
 import com.fishman.oj_backend_model.model.vo.QuestionSubmitVO;
 import com.fishman.oj_backend_question_service.mapper.QuestionSubmitMapper;
-
+import com.fishman.oj_backend_question_service.rabbitmq.MyMessageProducer;
 import com.fishman.oj_backend_question_service.service.QuestionService;
 import com.fishman.oj_backend_question_service.service.QuestionSubmitService;
 import com.fishman.oj_backend_service_client.service.JudgeFeignClient;
@@ -34,13 +34,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
-* @author fishman
-* @description 针对表【question_submit(题目提交)】的数据库操作Service实现
-*/
+ * @author fishman
+ * @description 针对表【question_submit(题目提交)】的数据库操作Service实现
+ */
 @Service
 public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper, QuestionSubmit>
-    implements QuestionSubmitService {
-    
+        implements QuestionSubmitService {
+
     @Resource
     private QuestionService questionService;
 
@@ -50,6 +50,9 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     @Resource
     @Lazy
     private JudgeFeignClient judgeFeignClient;
+
+    @Resource
+    private MyMessageProducer myMessageProducer;
 
     /**
      * 提交题目
@@ -88,10 +91,12 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "数据插入失败");
         }
         Long questionSubmitId = questionSubmit.getId();
+        // 发送消息
+        myMessageProducer.sendMessage("code_exchange", "my_routingKey", String.valueOf(questionSubmitId));
         // 执行判题服务
-        CompletableFuture.runAsync(() -> {
-            judgeFeignClient.doJudge(questionSubmitId);
-        });
+//        CompletableFuture.runAsync(() -> {
+//            judgeFeignClient.doJudge(questionSubmitId);
+//        });
         return questionSubmitId;
     }
 

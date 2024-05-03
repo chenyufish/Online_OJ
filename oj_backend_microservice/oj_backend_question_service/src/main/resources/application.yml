@@ -38,6 +38,11 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+  rabbitmq:
+    host: localhost
+    port: 5672
+    password: guest
+    username: guest
 server:
   address: 0.0.0.0
   port: 8103
@@ -59,6 +64,14 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
 knife4j:
   enable: true
+  openapi:
+    title: "fishmanOJ题目接口文档"
+    version: 1.0
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - com.fishman.oj_backend_question_service.controller
 # 代码沙箱测试配置
 codesandbox:
   type: remote

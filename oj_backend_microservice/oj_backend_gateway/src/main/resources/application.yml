@@ -6,15 +6,15 @@ spring:
     gateway:
       routes:
         - id: oj_backend_user_service
-          uri: lb://oj_backend_user_service
+          uri: lb://oj-backend-user-service
           predicates:
             - Path=/api/user/**
         - id: oj_backend_question_service
-          uri: lb://oj_backend_question_service
+          uri: lb://oj-backend-question-service
           predicates:
             - Path=/api/question/**
         - id: oj_backend_judge_service
-          uri: lb://oj_backend_judge_service
+          uri: lb://oj-backend-judge-service
           predicates:
             - Path=/api/judge/**
   application:
@@ -34,3 +34,18 @@ knife4j:
       enabled: true
       # ④ 第四行配置，聚合子服务全部为Swagger2规范的文档
       version: swagger2
+      excluded-services:
+        - oj_backend_gateway
+    routes:
+      - name: 用户接口文档
+        service-name: user-service
+        url: /api/user/v2/api-docs
+        order: 1
+      - name: 题目接口文档
+        service-name: question-service
+        url: /api/question/v2/api-docs
+        order: 1
+      - name: 判题接口文档
+        service-name: judge-question-service
+        url: /api/judge/v2/api-docs
+        order: 1
