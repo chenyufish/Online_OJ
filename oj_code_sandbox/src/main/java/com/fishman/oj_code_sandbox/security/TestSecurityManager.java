@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 public class TestSecurityManager {
 
     public static void main(String[] args) {
-        System.setSecurityManager(new MySecurityManager());
+        System.setSecurityManager(new DenySecurityManager());
         FileUtil.writeString("aa", "aaa", Charset.defaultCharset());
     }
 }

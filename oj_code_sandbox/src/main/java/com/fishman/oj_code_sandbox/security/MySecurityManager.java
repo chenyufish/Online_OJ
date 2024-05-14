@@ -17,12 +17,13 @@ public class MySecurityManager extends SecurityManager {
         throw new SecurityException("checkExec 权限异常：" + cmd);
     }
 
+
     // 检测程序是否允许读文件
 
     @Override
     public void checkRead(String file) {
         System.out.println(file);
-        if (file.contains("C:\\code\\yuoj-code-sandbox")) {
+        if (file.contains("G:\\java_projects\\IDEA_projects\\在线OJ平台\\Online_OJ\\oj_code_sandbox")) {
         }
 //        throw new SecurityException("checkRead 权限异常：" + file);
     }
